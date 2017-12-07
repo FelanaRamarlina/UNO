@@ -25,4 +25,8 @@ public class Carte {
     public String getCouleur(){
         return this.couleur;
     }
+    
+    public String toString(){
+        return this.getNum()+" "+this.getCouleur();
+    }
 }
