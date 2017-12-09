@@ -17,40 +17,39 @@ public class Paquet {
     
     public Paquet(){
         this.paquet = new ArrayList<Carte>();
-        int j=1;
-        int k=0;
-        for (int i=1;i<41;i++){
-            if(j<=10){
-                Carte carteJaune= new Carte(k,"jaune");
-                this.paquet.add(carteJaune);
-            }else if(j<=20){
-                Carte carteBleue= new Carte(k,"bleue");
-                this.paquet.add(carteBleue);
-            }else if(j<=30){
-                Carte carteVerte= new Carte(k,"verte");
-                this.paquet.add(carteVerte);
-            }else {
-                Carte carteRouge = new Carte(k,"rouge");
-                this.paquet.add(carteRouge);
-            }
-            j++;
-            if (k<9) {
-                k++;
-            }else {
-                k = 0;
-            }
-        }
-        
-        Collections.shuffle(this.paquet);
     }
     
-    public void affiche(){
+    public void afficherCartes(){
         for(int i =0; i<this.paquet.size();i++){
             System.out.println(this.paquet.get(i).toString());
         }
     }
+    
+    public Carte index(int i){
+        return this.paquet.get(i);
+    }
+    public int taille(){
+        return this.paquet.size();
+    }
+    
+    public void melanger(){
+        Collections.shuffle(this.paquet);
+    }
+    
+    public void ajouter(Carte c){
+        this.paquet.add(c);
+    }
+    
+    public void retirer(Carte c){
+        this.paquet.remove(c);
+    }
+    
+    public ArrayList<Carte> paquet(){
+        return this.paquet;
+    }
+    
     public static void main(String[] args) {
         Paquet p = new Paquet();
-        p.affiche();
+        p.afficherCartes();
     }
 }
