@@ -40,7 +40,7 @@ public class Paquet {
         this.paquet.add(c);
     }
     
-    public void retirer(Carte c){
+    public void tirer(Carte c){
         this.paquet.remove(c);
     }
     

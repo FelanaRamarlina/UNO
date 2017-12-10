@@ -55,7 +55,7 @@ public class ActionsJoueurs {
         for(i=0;i<this.joueurs.size();i++){
             for(int j=0;j<7;j++){
                 this.joueurs.get(i).ajouter(this.paquetCartes.index(j));
-                this.paquetCartes.retirer(this.paquetCartes.index(j));
+                this.paquetCartes.tirer(this.paquetCartes.index(j));
             }
         }        
     }
@@ -78,15 +78,23 @@ public class ActionsJoueurs {
         return joueur;
     }
     
+    public void tirerCarte(Joueur joueur, Carte carte) {
+        joueur = this.getJoueur(joueur.getPseudo());
+        joueur.tirer(carte);
+    }
+    
+    public void ajouterCarte(Joueur joueur, Carte carte) {
+        joueur = this.getJoueur(joueur.getPseudo());
+        joueur.ajouter(carte);
+    } 
+    
     public static void main(String[]argz){
         ActionsJoueurs actions = new ActionsJoueurs();
         actions.ajouter(new Joueur("José"));
         actions.ajouter(new Joueur("David"));
         actions.distribuer();
         
-        for(int i=0; i<actions.getJoueurs().size();i++) {
-            System.out.println(actions.getJoueurs().get(i).getPseudo());
-        }
+        
         actions.getJoueur("José").afficherCartes();
         System.out.println();
         actions.getJoueur("David").afficherCartes();
