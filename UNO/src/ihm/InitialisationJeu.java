@@ -5,7 +5,10 @@
  */
 package ihm;
 
+import controller.ActionsJoueurs;
+import java.util.ArrayList;
 import javax.swing.JComboBox;
+import javax.swing.JTextField;
 
 /**
  *
@@ -18,6 +21,8 @@ public class InitialisationJeu extends javax.swing.JFrame {
     private JComboBox nbJoueursList;
     private javax.swing.JPanel Panel;
     private javax.swing.JScrollPane scroll;
+    private ActionsJoueurs actions;
+    private ArrayList<JTextField> pseudos;
     
     public InitialisationJeu() {
         initComponents();
@@ -32,7 +37,7 @@ public class InitialisationJeu extends javax.swing.JFrame {
         valider = new javax.swing.JButton("Valider");
         pseudosTitle = new javax.swing.JLabel();
         pseudosTitle.setText("Pseudos :");
-
+        this.pseudos = new ArrayList<JTextField>();
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         nbJoueursTitle.setText("Nombre de joueurs :");
@@ -97,7 +102,18 @@ public class InitialisationJeu extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void validerActionPerformed(java.awt.event.ActionEvent evt) {  
-        int nbJoueurs = nbJoueursList.getSelectedIndex();
+        int nbJoueurs = (int) nbJoueursList.getSelectedItem();
+        int num = 1;
+        for(int i=0;i<nbJoueurs;i++){
+            JTextField joueur = new JTextField("Joueur "+num);
+            pseudos.add(joueur);
+        }
+        int hauteur = 170;
+        for(int i =0;i<pseudos.size();i++) {
+            Panel.add(pseudos.get(i));
+            pseudos.get(i).setBounds(20, 112, hauteur, 40);
+            hauteur = hauteur-10;
+        }
     }                                        
 
    
