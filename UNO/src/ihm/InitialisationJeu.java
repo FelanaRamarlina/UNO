@@ -30,8 +30,7 @@ public class InitialisationJeu extends javax.swing.JFrame {
 
     
     @SuppressWarnings("unchecked")
-    private void initComponents() {
-
+    private void initComponents(){
         Panel = new javax.swing.JPanel();
         nbJoueursTitle = new javax.swing.JLabel();
         valider = new javax.swing.JButton("Valider");
@@ -46,7 +45,7 @@ public class InitialisationJeu extends javax.swing.JFrame {
      
         valider.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                validerActionPerformed(evt);
+               // validerActionPerformed(evt);
             }
         });
 
@@ -102,25 +101,30 @@ public class InitialisationJeu extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void validerActionPerformed(java.awt.event.ActionEvent evt) {  
+        valider.setVisible(false);
         int nbJoueurs = (int) nbJoueursList.getSelectedItem();
         int num = 1;
         for(int i=0;i<nbJoueurs;i++){
             JTextField joueur = new JTextField("Joueur "+num);
             pseudos.add(joueur);
+            num++;
         }
-        int hauteur = 170;
+        int hauteur = 110;
         for(int i =0;i<pseudos.size();i++) {
             Panel.add(pseudos.get(i));
-            pseudos.get(i).setBounds(20, 112, hauteur, 40);
-            hauteur = hauteur-10;
+            pseudos.get(i).setBounds(20, hauteur, 170, 40);
+            hauteur = hauteur+60;
         }
-    }                                        
-
+    }  
+    
+    
    
     public static void main(String args[]) {     
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InitialisationJeu().setVisible(true);
+                InitialisationJeu Jeu = new InitialisationJeu();
+                Jeu.setSize(500,500);
+                Jeu.setVisible(true);
             }
         });
     }
