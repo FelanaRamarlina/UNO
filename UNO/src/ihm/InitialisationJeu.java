@@ -6,9 +6,12 @@
 package ihm;
 
 import controller.ActionsJoueurs;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import modele.Joueur;
 
 /**
  *
@@ -19,7 +22,7 @@ public class InitialisationJeu extends javax.swing.JFrame {
     private javax.swing.JLabel nbJoueursTitle;
     private javax.swing.JLabel pseudosTitle;
     private JComboBox nbJoueursList;
-    private javax.swing.JPanel Panel;
+    private javax.swing.JPanel  Panel;
     private javax.swing.JScrollPane scroll;
     private ActionsJoueurs actions;
     private ArrayList<JTextField> pseudos;
@@ -45,20 +48,20 @@ public class InitialisationJeu extends javax.swing.JFrame {
      
         valider.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-               // validerActionPerformed(evt);
+                validerActionPerformed(evt);
             }
         });
 
 
-        javax.swing.GroupLayout PanelLayout = new javax.swing.GroupLayout(Panel);
-        Panel.setLayout(PanelLayout);
+        javax.swing.GroupLayout PanelLayout = new javax.swing.GroupLayout( Panel);
+        Panel.setLayout( PanelLayout);
         PanelLayout.setHorizontalGroup(
             PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelLayout.createSequentialGroup()
+            .addGroup( PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup( PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nbJoueursTitle)
-                    .addGroup(PanelLayout.createSequentialGroup()
+                    .addGroup( PanelLayout.createSequentialGroup()
                         .addComponent(nbJoueursList, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(51, 51, 51)
                         .addComponent(valider))
@@ -68,10 +71,10 @@ public class InitialisationJeu extends javax.swing.JFrame {
         
         PanelLayout.setVerticalGroup(
             PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelLayout.createSequentialGroup()
+            .addGroup( PanelLayout.createSequentialGroup()
                 .addComponent(nbJoueursTitle)
                 .addGap(18, 18, 18)
-                .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup( PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nbJoueursList, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(valider))
                 .addGap(18, 18, 18)
@@ -85,7 +88,7 @@ public class InitialisationJeu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent( Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         
@@ -93,13 +96,16 @@ public class InitialisationJeu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent( Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>                        
-
+    
+    /*événements*/
+    
+    //Initialisation des joueurs
     private void validerActionPerformed(java.awt.event.ActionEvent evt) {  
         valider.setVisible(false);
         int nbJoueurs = (int) nbJoueursList.getSelectedItem();
@@ -110,20 +116,39 @@ public class InitialisationJeu extends javax.swing.JFrame {
             num++;
         }
         int hauteur = 110;
-        for(int i =0;i<pseudos.size();i++) {
-            Panel.add(pseudos.get(i));
-            pseudos.get(i).setBounds(20, hauteur, 170, 40);
+        for(JTextField txt : pseudos) {
+            Panel.add(txt);
+            txt.setBounds(20, hauteur, 170, 40);
             hauteur = hauteur+60;
         }
+        
+        JButton jouer = new JButton("Jouer");
+        Panel.add(jouer);
+        jouer.setBounds(20, 460, 170, 40);
+        
+        jouer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                initialiserActionPerformed(evt);
+            }
+        });
+        
     }  
     
+    private void initialiserActionPerformed(java.awt.event.ActionEvent evt) { 
+        this.actions = new ActionsJoueurs();
+        for(JTextField txt : pseudos){
+            Joueur joueur = new Joueur(txt.getText());
+            this.actions.ajouter(joueur);
+            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        }
+    }
     
    
     public static void main(String args[]) {     
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 InitialisationJeu Jeu = new InitialisationJeu();
-                Jeu.setSize(500,500);
+                Jeu.setSize(540,540);
                 Jeu.setVisible(true);
             }
         });
